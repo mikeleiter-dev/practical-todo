@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Practical Todo</title>
+  <meta name="description" content="See what you're working on, put the rest aside, and see what you keep putting off.">
+  <meta name="theme-color" content="#16181d">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <header class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <h1>Practical Todo</h1>
+      </header>
+      <button class="btn btn-primary new-btn" id="new-btn" title="New item (N)">+ New item</button>
+      <nav class="filters" id="filters" aria-label="Filter by place"></nav>
+      <ul class="cards" id="cards" aria-label="Items"></ul>
+    </aside>
+
+    <main class="main">
+      <header class="toolbar">
+        <h2 id="view-title">Active</h2>
+        <span class="count" id="view-count"></span>
+      </header>
+      <div class="table-wrap">
+        <table class="items">
+          <thead><tr id="table-head"></tr></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+        <p class="empty" id="empty" hidden>Nothing here.</p>
+      </div>
+    </main>
+  </div>
+
+  <div class="menu" id="snooze-menu" role="menu" hidden></div>
+
+  <dialog id="editor">
+    <form method="dialog" id="editor-form">
+      <h2 id="editor-title">New item</h2>
+      <label>Title
+        <input name="title" required autocomplete="off">
+      </label>
+      <label>Project
+        <input name="project" autocomplete="off" list="projects">
+      </label>
+      <datalist id="projects"></datalist>
+      <div class="row">
+        <label>Status
+          <select name="status"></select>
+        </label>
+        <label class="grow">Labels
+          <input name="labels" placeholder="comma, separated" autocomplete="off">
+        </label>
+      </div>
+      <dl class="facts" id="editor-facts"></dl>
+      <div class="editor-actions" id="editor-actions"></div>
+      <footer>
+        <button type="button" class="btn" value="cancel" id="editor-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary" value="save">Save</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>

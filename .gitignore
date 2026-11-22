@@ -1,0 +1,9 @@
+# Item data never goes in the repo. It lives in ~/.local/share/practical-todo
+# (real) and ~/.local/share/practical-todo-demo (demo). These are safety nets.
+.demo-data/
+items.json
+*.bak
+*.tmp
+seed-tasks.json
+
+node_modules/

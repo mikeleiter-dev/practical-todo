@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# Practical Todo launcher: make sure the server is up, then open the app window.
+#   practical-todo                 your real items
+#   practical-todo --demo          made-up items in a separate folder and port
+#   practical-todo --server-only   start the server, open nothing
+set -euo pipefail
+
+DEMO=0
+SERVER_ONLY=0
+for arg in "$@"; do
+  case $arg in
+    --demo) DEMO=1 ;;
+    --server-only) SERVER_ONLY=1 ;;
+    *) echo "Unknown option: $arg" >&2; exit 2 ;;
+  esac
+done
+
+ROOT="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
+if (( DEMO )); then PORT="${PORT:-4318}"; else PORT="${PORT:-4317}"; fi
+URL="http://localhost:${PORT}/app"
+API="http://127.0.0.1:${PORT}/api/items"
+SERVICE="practical-todo.service"
+SUFFIX=""
+(( DEMO )) && SUFFIX="-demo" || true
+LOG="${XDG_STATE_HOME:-$HOME/.local/state}/practical-todo/server${SUFFIX}.log"
+
+fail() {
+  echo "practical-todo: $1" >&2
+  command -v notify-send >/dev/null && notify-send -u critical "Practical Todo" "$1"
+  exit 1
+}
+
+server_up() { curl -fs -o /dev/null --max-time 1 "$API"; }
+
+if ! server_up; then
+  if (( ! DEMO )) && systemctl --user cat "$SERVICE" >/dev/null 2>&1; then
+    systemctl --user start "$SERVICE"
+  else
+    # Demo, or not installed as a service: run the server in the background ourselves.
+    mkdir -p "$(dirname "$LOG")"
+    PRACTICAL_TODO_DEMO=$DEMO PORT=$PORT setsid node "$ROOT/server.js" >>"$LOG" 2>&1 < /dev/null &
+  fi
+  for _ in $(seq 50); do
+    server_up && break
+    sleep 0.1
+  done
+  server_up || fail "The server did not start on port ${PORT}. See: journalctl --user -u ${SERVICE} or ${LOG}"
+fi
+
+if (( SERVER_ONLY )); then exit 0; fi
+
+if command -v omarchy-launch-webapp >/dev/null; then
+  exec omarchy-launch-webapp "$URL"
+fi
+for browser in chromium google-chrome-stable google-chrome brave microsoft-edge-stable; do
+  if command -v "$browser" >/dev/null; then
+    setsid "$browser" --app="$URL" >/dev/null 2>&1 < /dev/null &
+    exit 0
+  fi
+done
+fail "No Chromium-based browser found. Open ${URL} in your browser."
