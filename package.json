@@ -1,6 +1,6 @@
 {
   "name": "practical-todo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Personal to-do app: see what you're working on, snooze the rest, see what you keep putting off.",
   "type": "module",

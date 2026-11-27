@@ -51,18 +51,18 @@ Open **Practical Todo** from your app launcher. On Omarchy, press Super + Space 
 
 The app opens in its own window. If the server isn't running, the launcher starts it first. The server keeps running after you close the window, so the app opens instantly next time.
 
-To try the app with made-up items instead of your own, run `bin/practical-todo --demo`. On any system, `npm run demo` starts the demo server on http://localhost:4318.
+To try the app with made-up items instead of your own, run `bin/practical-todo --demo` (Linux launcher only). On any system, `npm run demo` starts the demo server on http://localhost:4318.
 
 ## Your items
 
 Your items are kept in one file outside the repo:
 
-| | Folder | Used by |
-|---|---|---|
-| **Your items** | `~/.local/share/practical-todo/items.json` | The installed app, `npm start` |
-| **Demo items** | `~/.local/share/practical-todo-demo/items.json` | `bin/practical-todo --demo`, `npm run demo` |
+| | Linux and macOS | Windows | Used by |
+|---|---|---|---|
+| **Your items** | `~/.local/share/practical-todo/items.json` | `%LOCALAPPDATA%\practical-todo\items.json` | The installed app, `npm start` |
+| **Demo items** | `~/.local/share/practical-todo-demo/items.json` | `%LOCALAPPDATA%\practical-todo-demo\items.json` | `bin/practical-todo --demo`, `npm run demo` |
 
-`~` is your home folder. On Windows that is `C:\Users\<you>`, so your items are in `C:\Users\<you>\.local\share\practical-todo\items.json`. These follow the Linux convention for app data (`$XDG_DATA_HOME`). Back up the first folder to keep your items safe.
+`~` is your home folder; `%LOCALAPPDATA%` is usually `C:\Users\<you>\AppData\Local`. Linux and macOS follow `$XDG_DATA_HOME` when it is set. The server prints the data file path when it starts. The file itself is created the first time the app loads, so it may not exist until you open the page. Back up your items folder to keep your items safe.
 
 **First run:** a new list starts with 11 made-up sample items, so you can see how everything works. When you're ready for your own list, run `npm run clear-samples`, then restart the server (Linux: `systemctl --user restart practical-todo`; otherwise Ctrl+C and `npm start`). That removes the samples, including any you edited, and keeps everything you added. A backup of the old file is kept.
 
@@ -71,6 +71,7 @@ Your items are kept in one file outside the repo:
 npm run import -- /path/to/seed-tasks.json            # into an empty list
 npm run import -- /path/to/seed-tasks.json --replace  # overwrite; keeps a .bak copy
 ```
+On Windows, use a Windows path, for example `npm run import -- C:\path\to\seed-tasks.json`.
 Then restart the server as above.
 The import maps the seed's `focus` and `status` onto Practical Todo's places and stops, without importing, if a field or value isn't recognised.
 
@@ -82,7 +83,7 @@ It reads your real items and searches every file git would commit. It reports fi
 
 ## Manage it (Linux launcher and service)
 
-On Windows and macOS, stop either server with Ctrl+C in its terminal, and update after pulling new code by restarting `npm start`.
+On Windows and macOS, stop either server with Ctrl+C in its terminal, and update after pulling new code by restarting `npm start`. To start the demo over, stop the demo server and delete the demo items folder (PowerShell: `Remove-Item -Recurse "$env:LOCALAPPDATA\practical-todo-demo"`).
 
 | To | Run |
 |---|---|
@@ -100,7 +101,7 @@ On Windows and macOS, stop either server with Ctrl+C in its terminal, and update
 - `npm run demo` runs the demo server in the terminal on http://localhost:4318. `npm start` does the same with your real items on http://localhost:4317.
 - `npm test` checks the rules: snooze times, places, snooze counts, sorting and the seed import. The tests use made-up data only.
 - [docs/manual-test.md](docs/manual-test.md) is a step-by-step manual test of every acceptance criterion, run against the demo.
-- The `PRACTICAL_TODO_DATA` and `PORT` environment variables override the data folder and port (for example `PORT=5000 npm start` on Linux/macOS, or `$env:PORT=5000; npm start` in PowerShell).
+- The `PRACTICAL_TODO_DATA` and `PORT` environment variables override the data folder and port (for example `PORT=5000 npm start` on Linux/macOS, or `$env:PORT=5000; npm start` in PowerShell, which keeps `PORT` set until you close that PowerShell window or run `Remove-Item Env:PORT`).
 
 ## Code layout
 
