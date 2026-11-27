@@ -3,11 +3,11 @@
 //   Real data:  $XDG_DATA_HOME/practical-todo       (default ~/.local/share/practical-todo)
 //   Demo data:  $XDG_DATA_HOME/practical-todo-demo  (made-up sample items, for trying and testing)
 //
-// PRACTICAL_TODO_DATA overrides the folder; PRACTICAL_TODO_DEMO=1 selects demo mode.
+// PRACTICAL_TODO_DATA overrides the folder; PRACTICAL_TODO_DEMO=1 or a --demo argument selects demo mode.
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 
-export const DEMO = process.env.PRACTICAL_TODO_DEMO === '1';
+export const DEMO = process.env.PRACTICAL_TODO_DEMO === '1' || process.argv.includes('--demo');
 
 const dataHome = process.env.XDG_DATA_HOME || join(homedir(), '.local', 'share');
 

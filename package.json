@@ -1,13 +1,13 @@
 {
   "name": "practical-todo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Personal to-do app: see what you're working on, snooze the rest, see what you keep putting off.",
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "demo": "PRACTICAL_TODO_DEMO=1 node server.js",
-    "test": "node --test test/",
+    "demo": "node server.js --demo",
+    "test": "node --test",
     "app": "bin/practical-todo",
     "app:install": "bash scripts/install-app.sh",
     "app:uninstall": "bash scripts/uninstall-app.sh",
