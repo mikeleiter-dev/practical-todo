@@ -1,7 +1,7 @@
 // Where Practical Todo keeps item data. Never inside the repo.
 //
 //   Real data:  $XDG_DATA_HOME/practical-todo       (default ~/.local/share/practical-todo)
-//   Demo data:  $XDG_DATA_HOME/practical-todo-demo  (made-up sample items only)
+//   Demo data:  $XDG_DATA_HOME/practical-todo-demo  (made-up sample items, for trying and testing)
 //
 // PRACTICAL_TODO_DATA overrides the folder; PRACTICAL_TODO_DEMO=1 selects demo mode.
 import { homedir } from 'node:os';

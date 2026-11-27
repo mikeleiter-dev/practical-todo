@@ -21,11 +21,12 @@ let writeQueue = Promise.resolve();
 async function load() {
   if (cache) return cache;
   if (!existsSync(DATA_FILE)) {
-    // Only demo mode gets made-up items. Real data starts empty.
+    // A new list starts with made-up sample items, so a first run shows how the app works.
+    // `npm run clear-samples` removes them. An existing list is never touched.
     await mkdir(DATA_DIR, { recursive: true });
-    cache = { version: 1, items: DEMO ? sampleItems(new Date()) : [] };
+    cache = { version: 1, items: sampleItems(new Date()) };
     await save();
-    console.log(`Created ${DATA_FILE} with ${cache.items.length} ${DEMO ? 'sample ' : ''}items`);
+    console.log(`Created ${DATA_FILE} with ${cache.items.length} sample items`);
   } else {
     cache = JSON.parse(await readFile(DATA_FILE, 'utf8'));
   }

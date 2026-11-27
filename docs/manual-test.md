@@ -19,7 +19,7 @@ Parts 2 to 8 follow the acceptance criteria in [story.md](../story.md). **They u
 - [ ] **1.1** Press Super + Space and type "todo".
   **Expect:** **Practical Todo** is listed with the purple-and-blue icon.
 - [ ] **1.2** Open it.
-  **Expect:** the app opens in its own window with no address bar, showing **your real items**. Click **All** and check the count matches your list. Don't change anything here. Close it.
+  **Expect:** the app opens in its own window with no address bar, showing **your items**. On a fresh install these are the 11 sample items. Click **All** and check the count matches your list. Don't change anything here. Close it.
 - [ ] **1.3** Open it again from the launcher.
   **Expect:** it opens faster, because the server is still running. Close it.
 - [ ] **1.4** Open the demo:
@@ -52,7 +52,7 @@ Parts 2 to 8 follow the acceptance criteria in [story.md](../story.md). **They u
 
 ## 4 · Add and edit items
 
-- [ ] **4.1** Click **+ New item**. Title: `Test add`. Project: start typing `Demo` and pick **Demo video** from the suggestions. Labels: `test, demo`. Save.
+- [ ] **4.1** Click **+ New item**. Title: `Test add`. Project: start typing `Ho` and pick **Home** from the suggestions. Labels: `test, demo`. Save.
   **Expect:** it's in Active as **T12**, with its project, and today as Created.
 - [ ] **4.2** Click somewhere empty on the page, then press **N**.
   **Expect:** the New item box opens. Press Esc to close it.
@@ -102,7 +102,7 @@ Parts 2 to 8 follow the acceptance criteria in [story.md](../story.md). **They u
   **Expect:** it moves to Archived.
 - [ ] **8.4** Under Archived, click **Unarchive**.
   **Expect:** it goes back to Settled.
-- [ ] **8.5** Under Settled, click **Unsettle** on "Set up the new microphone". Then set its status back to **Done** with the drop-down.
+- [ ] **8.5** Under Settled, click **Unsettle** on "Clean out the garage". Then set its status back to **Done** with the drop-down.
   **Expect:** after unsettling it's Active as To do. Choosing Done settles it again.
 
 ## 9 · Final checks

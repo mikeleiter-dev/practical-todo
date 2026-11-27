@@ -130,6 +130,7 @@ test('sample data has 6 to 12 items covering every place', () => {
   const places = new Set(items.map((i) => placeOf(i, NOW)));
   assert.deepEqual([...places].sort(), ['active', 'archived', 'dormant', 'settled', 'sleeping']);
   assert.deepEqual(items.map((i) => i.id), items.map((_, n) => `T${n + 1}`));
+  assert.ok(items.every((i) => i.sample === true), 'samples are flagged so clear-samples can remove them');
 });
 
 test('place is separate from status: a Done item can stay Active, a To do item can be Settled', () => {

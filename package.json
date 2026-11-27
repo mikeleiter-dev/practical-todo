@@ -12,9 +12,11 @@
     "app:install": "bash scripts/install-app.sh",
     "app:uninstall": "bash scripts/uninstall-app.sh",
     "import": "node scripts/import-seed.js",
-    "check:data": "node scripts/check-no-real-data.js"
+    "check:data": "node scripts/check-no-real-data.js",
+    "clear-samples": "node scripts/clear-samples.js"
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "license": "MIT"
 }
